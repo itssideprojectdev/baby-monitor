@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Question</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    label, input {
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <label for="user-input">What are you working on?</label>
+  <input type="text" id="user-input"
+    onkeydown="if (event.keyCode === 13) {window.electron.ipcRenderer.send('user-input', this.value);this.value='';}"
+  />
+  <script>
+    window.electron.ipcRenderer.on('show-window', () => {
+      document.getElementById('user-input').focus();
+    });
+  </script>
+</body>
+</html>
